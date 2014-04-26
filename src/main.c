@@ -1,21 +1,24 @@
-#include <stdio.h>
+#include "action_help.h"
+#include "action_info.h"
+
+// Typedef for function pointers to action implementations
+typedef void(*action_func_ptr)(int fcount, const char **files);
 
 int main(int argc, char **argv)
 {
-	if(argc < 3)
+	// Pointer to the implementation of the chosen action; func ptrs are nice
+	// Default to printing a help message if there's no match
+	action_func_ptr action_func = &action_help;
+	
+	if(argc >= 3)
 	{
-		printf("Usage: swftool [action] [file(s)]\n");
-		printf("    \n");
-		printf("Actions:\n");
-		printf("    info - Print information about the given file(s)\n");
+		const char *action_str = argv[1];
 		
-		return 1;
+		if(strcmp(action_str, "info") == 0)
+			action_func = &action_info;
 	}
 	
-	for(int i = 1; i < argc; ++i)
-	{
-		printf("%s\n", argv[i]);
-	}
+	action_func(argv[2], (argc >= 3 ? argc - 2 : 0));
 	
 	return 0;
 }
