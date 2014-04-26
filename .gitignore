@@ -6,6 +6,7 @@
 /config.*
 /configure
 /depcomp
+/compile
 /install-sh
 /m4/
 /missing

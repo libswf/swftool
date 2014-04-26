@@ -4,7 +4,7 @@
 		{
 			"path": ".",
 			"folder_exclude_patterns": ["autom4te.cache", ".deps"],
-			"file_exclude_patterns": [".dirstamp", "depcomp", "install-sh", "missing", "Makefile", "Makefile.in", "configure", "aclocal.m4", "config.status", "*.sublime-workspace"]
+			"file_exclude_patterns": [".dirstamp", "depcomp", "compile", "install-sh", "missing", "Makefile", "Makefile.in", "configure", "aclocal.m4", "config.status", "*.sublime-workspace"]
 		}
 	]
 }
