@@ -4,12 +4,7 @@
 /aclocal.m4
 /autom4te.cache/
 /config.*
-/configure
-/depcomp
-/compile
-/install-sh
 /m4/
-/missing
 /stamp-h?
 .deps/
 .dirstamp
