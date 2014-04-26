@@ -17,3 +17,8 @@
 *~
 *.swp
 
+*.sublime-workspace
+
+/swftool
+/swftool.exe
+
