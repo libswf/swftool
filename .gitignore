@@ -1,9 +1,15 @@
 # Autotools stuff
 /Makefile
 /Makefile.in
+/configure
 /aclocal.m4
 /autom4te.cache/
 /config.*
+/compile
+/depcomp
+/install-sh
+/ltmain.sh
+/missing
 /m4/
 /stamp-h?
 .deps/
