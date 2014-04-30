@@ -3,8 +3,8 @@
 	[
 		{
 			"path": ".",
-			"folder_exclude_patterns": ["autom4te.cache", ".deps"],
-			"file_exclude_patterns": [".dirstamp", "depcomp", "compile", "install-sh", "missing", "Makefile", "Makefile.in", "configure", "aclocal.m4", "config.status", "*.sublime-workspace"]
+			"folder_exclude_patterns": ["autom4te.cache", "m4", ".deps"],
+			"file_exclude_patterns": ["Makefile", "Makefile.in", "configure", "aclocal.m4", "autom4te.cache", "config.*", "compile", "depcomp", "install-sh", "ltmain.sh", "missing", "stamp-h?", ".deps", ".dirstamp", "*.o", "*~", "*.swp", "*.sublime-workspace", "swftool", "swftool.exe"]
 		}
 	]
 }

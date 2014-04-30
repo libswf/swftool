@@ -1,3 +1,0 @@
-[submodule "lib/libswf"]
-	path = lib/libswf
-	url = git@github.com:libswf/libswf.git
