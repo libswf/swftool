@@ -1,8 +1,9 @@
+#include <string.h>
 #include "action_help.h"
 #include "action_info.h"
 
 // Typedef for function pointers to action implementations
-typedef void(*action_func_ptr)(int fcount, const char **files);
+typedef int(*action_func_ptr)(int fcount, char **files);
 
 int main(int argc, char **argv)
 {
@@ -18,7 +19,7 @@ int main(int argc, char **argv)
 			action_func = &action_info;
 	}
 	
-	action_func((argc >= 3 ? argc - 2 : 0), argv[2]);
+	action_func((argc >= 3 ? argc - 2 : 0), argv + 2);
 	
 	return 0;
 }
