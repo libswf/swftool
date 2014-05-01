@@ -2,7 +2,6 @@
 #include <errno.h>
 #include <string.h>
 #include <swf.h>
-#include "constants.h"
 #include "util.h"
 
 int action_info(int fcount, char **files)

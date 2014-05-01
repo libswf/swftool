@@ -1,5 +1,6 @@
 #include "util.h"
 #include <stdlib.h>
+#include "constants.h"
 
 SWF* swf_create_from_file(FILE *fp, SWFError *out_err)
 {
