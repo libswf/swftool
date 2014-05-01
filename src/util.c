@@ -4,7 +4,7 @@
 
 SWF* swf_create_from_file(FILE *fp, SWFError *out_err)
 {
-    *out_err = SWF_OK;
+    if(out_err != NULL) *out_err = SWF_OK;
     
     SWFParser *parser = swf_parser_init();
     SWF *swf = swf_parser_get_swf(parser);
@@ -18,7 +18,7 @@ SWF* swf_create_from_file(FILE *fp, SWFError *out_err)
         SWFError err = swf_parser_append(parser, buffer, size_read);
         if(err < 0)
         {
-            *out_err = err;
+            if(out_err != NULL) *out_err = err;
             break;
         }
     }*/
