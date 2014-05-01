@@ -20,11 +20,17 @@ int action_info(int fcount, char **files)
 			
 			if(err == SWF_OK)
 			{
-				printf("%s\n", path);
+				if(fcount > 1)
+					printf("== %s ==\n", path);
+				
 				printf("SWF %d, %s compression\n", swf->version,
 					(swf->compression == SWF_UNCOMPRESSED ? "no" :
 						(swf->compression == SWF_ZLIB ? "ZLIB" :
 						(swf->compression == SWF_LZMA ? "LZMA" : "unknown"))));
+				printf("%dx%d px, %d frame%s\n",
+					(swf->frame_size.x_max - swf->frame_size.x_min)/20,
+					(swf->frame_size.y_max - swf->frame_size.y_min)/20,
+					swf->frame_count, (swf->frame_count > 1 ? "s" : ""));
 			}
 			else
 			{
