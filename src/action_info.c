@@ -11,15 +11,11 @@ int action_info(int fcount, char **files)
 	for(int i = 0; i < fcount; i++)
 	{
 		const char *path = files[i];
+		SWFError err;
+		SWF *swf = swf_create_from_path(path, &err);
 		
-		FILE *fp = fopen(path, "rb");
-		if(fp)
+		if(swf)
 		{
-			SWFError err;
-			SWF *swf = swf_create_from_file(fp, &err);
-			
-			fclose(fp);
-			
 			if(err == SWF_OK)
 			{
 				if(fcount > 1)
