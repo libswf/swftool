@@ -19,7 +19,5 @@ int main(int argc, char **argv)
 			action_func = &action_info;
 	}
 	
-	action_func((argc >= 3 ? argc - 2 : 0), argv + 2);
-	
-	return 0;
+	return action_func((argc >= 3 ? argc - 2 : 0), argv + 2);
 }
