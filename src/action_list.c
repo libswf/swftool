@@ -1,7 +1,9 @@
 #include "action_list.h"
 #include <errno.h>
 #include <string.h>
+#include <math.h>
 #include <swf.h>
+#include <zlib.h>
 #include "util.h"
 
 int action_list(int fcount, char **files)
@@ -21,10 +23,14 @@ int action_list(int fcount, char **files)
 		{
 			if(err == SWF_OK)
 			{
-				for(unsigned i = 0; i < swf->nb_tags; i++)
+				// Count the number of digits in the tag count, to get the
+				// padding for that column in the output
+				unsigned num_max_digits = log10((double)swf->nb_tags) + 1;
+				
+				for(unsigned j = 0; j < swf->nb_tags; j++)
 				{
-					SWFTag *tag = &swf->tags[i];
-					char *type = NULL;
+					SWFTag *tag = &swf->tags[j];
+					const char *type = NULL;
 					
 					// TODO: More descriptive tag names
 					switch(tag->type)
@@ -161,8 +167,20 @@ int action_list(int fcount, char **files)
 							type = "Enable Telemetry"; break;
 					}
 					
-					if(type != NULL) printf("%s\n", type);
-					else printf("UNKNOWN (%i)\n", tag->type);
+					
+					
+					// Tag ID
+					printf("%-*d | ", num_max_digits, j+1);
+					
+					// CRC32
+					uint32_t crc = crc32(crc32(0, NULL, 0), tag->payload, tag->size);
+					printf("%08X | ", crc);
+					
+					// Tag name
+					if(type != NULL) printf("%s", type);
+					else printf("UNKNOWN (%i)", tag->type);
+					
+					printf("\n");
 				}
 			}
 			else
