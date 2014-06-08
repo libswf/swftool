@@ -167,7 +167,7 @@ int action_list(int fcount, char **files)
 			}
 			else
 			{
-				printf("Error %d: %s", err, swf->err.text);
+				printf("Error %d: %s\n", err, swf->err.text);
 				retval = 1;
 			}
 			
@@ -175,7 +175,7 @@ int action_list(int fcount, char **files)
 		}
 		else
 		{
-			fprintf(stderr, "Couldn't open %s: %s", path, strerror(errno));
+			fprintf(stderr, "Couldn't open %s: %s\n", path, strerror(errno));
 			retval = 1;
 		}
 	}
