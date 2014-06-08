@@ -13,16 +13,19 @@ int action_list(int fcount, char **files)
 	for(int i = 0; i < fcount; i++)
 	{
 		const char *path = files[i];
-		SWFError err;
-		SWF *swf = swf_create_from_path(path, &err);
 		
 		if(fcount > 1)
 			printf("== %s ==\n", path);
 		
-		if(swf)
+		FILE *fp = fopen(path, "rb");
+		if(fp)
 		{
-			if(err == SWF_OK)
+			SWFParser *parser = swf_parser_init();
+			
+			if(parse_swf_file(parser, fp) == SWF_OK)
 			{
+				SWF *swf = swf_parser_get_swf(parser);
+				
 				// Count the number of digits in the tag count, to get the
 				// padding for that column in the output
 				unsigned num_max_digits = log10((double)swf->nb_tags) + 1;
@@ -182,14 +185,17 @@ int action_list(int fcount, char **files)
 					
 					printf("\n");
 				}
+				
+				swf_free(swf);
 			}
 			else
 			{
-				printf("ERROR: Couldn't load file: %s (%d)\n", swf->err.text, err);
+				SWFErrorDesc *err = swf_parser_get_error(parser);
+				printf("ERROR: Couldn't load file: %s (%d)\n", err->text, err->code);
 				retval = 1;
 			}
 			
-			swf_free(swf);
+			swf_parser_free(parser);
 		}
 		else
 		{
