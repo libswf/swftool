@@ -12,12 +12,12 @@ void action_list_callback(SWF *swf)
 	// padding for that column in the output
 	unsigned num_max_digits = log10((double)swf->nb_tags) + 1;
 	
-	for(unsigned j = 0; j < swf->nb_tags; j++)
+	for(unsigned i = 0; i < swf->nb_tags; i++)
 	{
-		SWFTag *tag = &swf->tags[j];
+		SWFTag *tag = &swf->tags[i];
 		
 		// Tag ID
-		printf("%-*d | ", num_max_digits, j+1);
+		printf("%-*d | ", num_max_digits, i+1);
 		
 		// CRC32
 		uint32_t crc = crc32(crc32(0, NULL, 0), tag->payload, tag->size);
