@@ -14,14 +14,13 @@ int action_list(int fcount, char **files)
 		SWFError err;
 		SWF *swf = swf_create_from_path(path, &err);
 		
+		if(fcount > 1)
+			printf("== %s ==\n", path);
+		
 		if(swf)
 		{
-			if(fcount > 1)
-				printf("== %s ==\n", path);
-			
 			if(err == SWF_OK)
 			{
-				
 				for(unsigned i = 0; i < swf->nb_tags; i++)
 				{
 					SWFTag *tag = &swf->tags[i];

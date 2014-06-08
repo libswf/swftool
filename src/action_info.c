@@ -14,11 +14,11 @@ int action_info(int fcount, char **files)
 		SWFError err;
 		SWF *swf = swf_create_from_path(path, &err);
 		
+		if(fcount > 1)
+			printf("== %s ==\n", path);
+		
 		if(swf)
 		{
-			if(fcount > 1)
-				printf("== %s ==\n", path);
-			
 			if(err == SWF_OK)
 			{
 				printf("SWF %d, %s compression\n", swf->version,
