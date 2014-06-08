@@ -7,6 +7,7 @@ int action_help(int fcount, char **files)
 	printf("    \n");
 	printf("Actions:\n");
 	printf("    info - Print information about the given file(s)\n");
+	printf("    list - List the contents of the given file(s)\n");
 	
 	return 0;
 }
