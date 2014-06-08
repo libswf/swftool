@@ -1,6 +1,4 @@
 #include "action_info.h"
-#include <errno.h>
-#include <string.h>
 #include <swf.h>
 #include "util.h"
 

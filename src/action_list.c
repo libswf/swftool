@@ -1,6 +1,4 @@
 #include "action_list.h"
-#include <errno.h>
-#include <string.h>
 #include <math.h>
 #include <swf.h>
 #include <zlib.h>
@@ -24,7 +22,7 @@ void action_list_callback(SWF *swf)
 		printf("%08X | ", crc);
 		
 		// Tag name
-		const char *type = printable_tag_type(swf->type);
+		const char *type = printable_tag_type(tag->type);
 		if(type != NULL) printf("%s", type);
 		else printf("UNKNOWN (%i)", tag->type);
 		

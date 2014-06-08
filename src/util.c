@@ -1,10 +1,12 @@
 #include "util.h"
+#include <errno.h>
+#include <string.h>
 #include <stdlib.h>
 #include "constants.h"
 
 const char* printable_tag_type(SWFTagType type)
 {
-	switch(tag->type)
+	switch(type)
 	{
 		case SWF_END:
 			return "End";
@@ -220,7 +222,7 @@ SWFError parse_swf_file(SWFParser *parser, FILE *fp)
 	return SWF_OK;
 }
 
-int batch_process_files(int fcount, const char **files, void(*callback)(SWF *swf))
+int batch_process_files(int fcount, char **files, void(*callback)(SWF *swf))
 {
 	int retval = 0;
 	
