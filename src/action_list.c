@@ -16,10 +16,11 @@ int action_list(int fcount, char **files)
 		
 		if(swf)
 		{
+			if(fcount > 1)
+				printf("== %s ==\n", path);
+			
 			if(err == SWF_OK)
 			{
-				if(fcount > 1)
-					printf("== %s ==\n", path);
 				
 				for(unsigned i = 0; i < swf->nb_tags; i++)
 				{
@@ -167,7 +168,7 @@ int action_list(int fcount, char **files)
 			}
 			else
 			{
-				printf("Error %d: %s\n", err, swf->err.text);
+				printf("ERROR: Couldn't load file: %s (%d)\n", swf->err.text, err);
 				retval = 1;
 			}
 			
@@ -175,7 +176,7 @@ int action_list(int fcount, char **files)
 		}
 		else
 		{
-			fprintf(stderr, "Couldn't open %s: %s\n", path, strerror(errno));
+			fprintf(stderr, "ERROR: Couldn't open file: %s\n", strerror(errno));
 			retval = 1;
 		}
 	}
