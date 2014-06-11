@@ -53,12 +53,15 @@ int main(int argc, char **argv)
 	// Default to printing a help message if there's no match
 	action_func_ptr action_func = NULL;
 	
+	// Loop through the arguments, excluding 0 (the program name)
 	for(int i = 1; i < argc; i++)
 	{
 		char *arg = argv[i];
 		
+		// If it starts with '-', it's a flag
 		if(strlen(arg) > 1 && arg[0] == '-')
 		{
+			// If it starts with "--", it's a single, long flag
 			if(arg[1] == '-')
 			{
 				for(size_t j = 0; j < sizeof(arguments)/sizeof(arguments[0]); j++)
@@ -68,8 +71,10 @@ int main(int argc, char **argv)
 						*(argument->out_flag) = true;
 				}
 			}
+			// Otherwise it's one or more short flags
 			else
 			{
+				// For short flags, each letter in the string can be a flag
 				for(size_t k = 1; k < strlen(arg); k++)
 				{
 					for(size_t j = 0; j < sizeof(arguments)/sizeof(arguments[0]); j++)
@@ -81,8 +86,10 @@ int main(int argc, char **argv)
 				}
 			}
 		}
+		// If it's not a flag...
 		else
 		{
+			// The first non-flag argument should be the action
 			if(action_func == NULL)
 			{
 				for(size_t i = 0; i < sizeof(actions)/sizeof(actions[0]); i++)
@@ -94,11 +101,15 @@ int main(int argc, char **argv)
 					}
 				}
 			}
+			// Everything else is a file
 			else
 			{
 				++arg_data.fcount;
+				
+				// Why doesn't POSIX have OpenBSD's reallocarray yet?
 				if(arg_data.files == NULL) arg_data.files = malloc(arg_data.fcount * sizeof(char*));
 				else arg_data.files = realloc(arg_data.files, arg_data.fcount * sizeof(char*));
+				
 				arg_data.files[arg_data.fcount - 1] = arg;
 			}
 		}
