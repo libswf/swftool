@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include "common.h"
@@ -33,15 +34,14 @@ typedef struct {
 int main(int argc, char **argv)
 {
 	// Args to pass to functions
-	args_t arg_data;
-	memset(&arg_data, 0, sizeof(arg_data));
-	
+	args_t arg_data = {0};
+
 	// Map of registered actions
 	action_entry actions[] = {
 		{ "info", &action_info },
 		{ "list", &action_list }
 	};
-	
+
 	// Map of registered arguments
 	argument_entry arguments[] = {
 		{ 'v', "verbose", &arg_data.verbose }
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 	
 	for(int i = 1; i < argc; i++)
 	{
-		const char *arg = argv[i];
+		char *arg = argv[i];
 		
 		if(strlen(arg) > 1 && arg[0] == '-')
 		{

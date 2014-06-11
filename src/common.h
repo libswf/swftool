@@ -3,7 +3,7 @@
 
 typedef struct {
 	int fcount;
-	const char **files;
+	char **files;
 	
 	bool verbose;
 } args_t;
