@@ -100,6 +100,13 @@ int main(int argc, char **argv)
 						break;
 					}
 				}
+				
+				// Error if we still haven't got an action_func
+				if(action_func == NULL)
+				{
+					printf("ERROR: Unknown action %s\n", arg);
+					break;
+				}
 			}
 			// Everything else is a file
 			else
@@ -115,5 +122,5 @@ int main(int argc, char **argv)
 		}
 	}
 	
-	return action_func(&arg_data);
+	return (action_func != NULL ? action_func(&arg_data) : 1);
 }
