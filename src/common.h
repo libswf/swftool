@@ -7,7 +7,7 @@ typedef struct {
 	int fcount;
 	char **files;
 	
-	bool print_help;
+	bool print_help, print_version;
 	bool verbose;
 } args_t;
 

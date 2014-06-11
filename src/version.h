@@ -1,0 +1,7 @@
+#ifndef VERSION_H
+#define VERSION_H
+
+#define SWFTOOL_VERSION_MAJOR 0
+#define SWFTOOL_VERSION_MINOR 1
+
+#endif

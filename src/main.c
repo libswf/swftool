@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "common.h"
+#include "version.h"
 #include "action_info.h"
 #include "action_list.h"
 
@@ -52,8 +53,12 @@ action_entry actions[] = {
 // Map of registered arguments
 argument_entry arguments[] = {
 	{
-		'h', "help", &arg_data.print_help,
+		'?', "help", &arg_data.print_help,
 		"Print this help message and exit."
+	},
+	{
+		0, "version", &arg_data.print_version,
+		"Print the program version and exit."
 	},
 	{
 		'v', "verbose", &arg_data.verbose,
@@ -62,6 +67,11 @@ argument_entry arguments[] = {
 };
 
 
+
+void print_version()
+{
+	printf("swftool %i.%i\n", SWFTOOL_VERSION_MAJOR, SWFTOOL_VERSION_MINOR);
+}
 
 void print_help()
 {
@@ -163,6 +173,14 @@ int main(int argc, char **argv)
 				arg_data.files[arg_data.fcount - 1] = arg;
 			}
 		}
+	}
+	
+	
+	
+	if(arg_data.print_version)
+	{
+		print_version();
+		return 0;
 	}
 	
 	if(action_func == NULL || arg_data.print_help)
