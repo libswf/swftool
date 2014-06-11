@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "common.h"
 #include "version.h"
+#include "common.h"
+#include "util.h"
 #include "action_info.h"
 #include "action_list.h"
 
@@ -42,7 +43,12 @@ args_t arg_data = {0};
 action_entry actions[] = {
 	{
 		"info", &action_info,
-		"Print general information about an SWF."
+		"Print general information about an SWF.\n"
+		"This information currently includes:\n"
+		"   - SWF Version\n"
+		"   - Compression Algorithm\n"
+		"   - Dimensions\n"
+		"   - Framerate"
 	},
 	{
 		"list", &action_list,
@@ -84,7 +90,7 @@ void print_help()
 	for(size_t i = 0; i < sizeof(actions)/sizeof(actions[0]); i++)
 	{
 		printf("    \033[1m%s\033[0m\n", actions[i].key);
-		printf("        %s\n", actions[i].helptext);
+		print_indented(8, actions[i].helptext);
 		printf("\n");
 	}
 	

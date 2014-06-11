@@ -4,6 +4,18 @@
 #include <stdlib.h>
 #include "constants.h"
 
+void print_indented(int indent, const char *string)
+{
+	char *tmp = strdup(string);
+	char *pch = strtok(tmp, "\n");
+	while(pch != NULL)
+	{
+		printf("%*s%s\n", indent, "", pch);
+		pch = strtok(NULL, "\n");
+	}
+	free(tmp);
+}
+
 const char* printable_tag_type(SWFTagType type)
 {
 	switch(type)
