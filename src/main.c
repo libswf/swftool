@@ -49,16 +49,17 @@ int main(int argc, char **argv)
 	
 	// Pointer to the implementation of the chosen action; func ptrs are nice
 	// Default to printing a help message if there's no match
-	//action_func_ptr action_func = &action_help;
+	action_func_ptr action_func = NULL;
 	
 	for(int i = 1; i < argc; i++)
 	{
 		const char *arg = argv[i];
+		
 		if(strlen(arg) > 1 && arg[0] == '-')
 		{
 			if(arg[1] == '-')
 			{
-				for(int j = 0; j < sizeof(arguments)/sizeof(arguments[0]); j++)
+				for(size_t j = 0; j < sizeof(arguments)/sizeof(arguments[0]); j++)
 				{
 					if(strcmp(arg + 2, arguments[j].lkey) == 0 && arguments[j].out_flag != NULL)
 						*(arguments[j].out_flag) = true;
@@ -66,9 +67,9 @@ int main(int argc, char **argv)
 			}
 			else
 			{
-				for(int k = 1; k < strlen(arg); k++)
+				for(size_t k = 1; k < strlen(arg); k++)
 				{
-					for(int j = 0; j < sizeof(arguments)/sizeof(arguments[0]); j++)
+					for(size_t j = 0; j < sizeof(arguments)/sizeof(arguments[0]); j++)
 					{
 						if(arg[k] == arguments[j].skey && arguments[j].out_flag != NULL)
 							*(arguments[j].out_flag) = true;
@@ -76,18 +77,28 @@ int main(int argc, char **argv)
 				}
 			}
 		}
+		else
+		{
+			if(action_func == NULL)
+			{
+				for(size_t i = 0; i < sizeof(actions)/sizeof(actions[0]); i++)
+				{
+					if(strcmp(actions[i].key, arg) == 0)
+					{
+						action_func = actions[i].func;
+						break;
+					}
+				}
+			}
+			else
+			{
+				++arg_data.fcount;
+				if(arg_data.files == NULL) arg_data.files = malloc(arg_data.fcount * sizeof(char*));
+				else arg_data.files = realloc(arg_data.files, arg_data.fcount * sizeof(char*));
+				arg_data.files[arg_data.fcount - 1] = arg;
+			}
+		}
 	}
 	
-	return 0;
-	
-	/*if(argc >= 3)
-	{
-		const char *action_str = argv[1];
-		
-		for(unsigned i = 0; i < sizeof(actions)/sizeof(actions[0]); i++)
-			if(strcmp(action_str, actions[i].key) == 0)
-				{ action_func = actions[i].func; break; }
-	}
-	
-	return action_func((argc >= 3 ? argc - 2 : 0), argv + 2);*/
+	return action_func(arg_data.fcount, arg_data.files);
 }

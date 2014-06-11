@@ -5,7 +5,7 @@ typedef struct {
 	int fcount;
 	const char **files;
 	
-	bool verbose, test;
+	bool verbose;
 } args_t;
 
 #endif
