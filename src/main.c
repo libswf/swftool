@@ -31,22 +31,24 @@ typedef struct {
 
 
 
+// Args to pass to functions
+args_t arg_data = {0};
+
+// Map of registered actions
+action_entry actions[] = {
+	{ "info", &action_info },
+	{ "list", &action_list }
+};
+
+// Map of registered arguments
+argument_entry arguments[] = {
+	{ 'v', "verbose", &arg_data.verbose }
+};
+
+
+
 int main(int argc, char **argv)
 {
-	// Args to pass to functions
-	args_t arg_data = {0};
-
-	// Map of registered actions
-	action_entry actions[] = {
-		{ "info", &action_info },
-		{ "list", &action_list }
-	};
-
-	// Map of registered arguments
-	argument_entry arguments[] = {
-		{ 'v', "verbose", &arg_data.verbose }
-	};
-	
 	// Pointer to the implementation of the chosen action; func ptrs are nice
 	// Default to printing a help message if there's no match
 	action_func_ptr action_func = NULL;
