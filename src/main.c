@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "common.h"
-#include "action_help.h"
 #include "action_info.h"
 #include "action_list.h"
 
@@ -20,6 +19,8 @@ typedef int(*action_func_ptr)(args_t *args);
 typedef struct {
 	const char *key;		///< The key for the action
 	action_func_ptr func;	///< Function to call if this action is requested
+	
+	const char *helptext;	///< Descriptive text for --help
 } action_entry;
 
 /// Typedef for argument map entries
@@ -27,6 +28,8 @@ typedef struct {
 	const char skey;		///< Shorthand key for the arg
 	const char *lkey;		///< Long key for the arg
 	bool *out_flag;			///< Flag to set if the arg is passed
+	
+	const char *helptext;	///< Descriptive text for --help
 } argument_entry;
 
 
@@ -36,14 +39,54 @@ args_t arg_data = {0};
 
 // Map of registered actions
 action_entry actions[] = {
-	{ "info", &action_info },
-	{ "list", &action_list }
+	{
+		"info", &action_info,
+		"Print general information about an SWF."
+	},
+	{
+		"list", &action_list,
+		"List tags in an SWF."
+	},
 };
 
 // Map of registered arguments
 argument_entry arguments[] = {
-	{ 'v', "verbose", &arg_data.verbose }
+	{
+		'h', "help", &arg_data.print_help,
+		"Print this help message and exit."
+	},
+	{
+		'v', "verbose", &arg_data.verbose,
+		"Verbose output (does nothing atm)."
+	},
 };
+
+
+
+void print_help()
+{
+	printf("Usage: swftool [action] [file] <file2> <file...>\n");
+	printf("\n");
+	
+	printf("Actions:\n");
+	for(size_t i = 0; i < sizeof(actions)/sizeof(actions[0]); i++)
+	{
+		printf("    %s\n", actions[i].key);
+		printf("        %s\n", actions[i].helptext);
+	}
+	
+	printf("Options:\n");
+	for(size_t i = 0; i < sizeof(arguments)/sizeof(arguments[0]); i++)
+	{
+		printf("    ");
+		if(arguments[i].skey != 0) printf("-%c", arguments[i].skey);
+		if(arguments[i].skey != 0 && arguments[i].lkey != NULL) printf(", ");
+		if(arguments[i].lkey != NULL) printf("--%s", arguments[i].lkey);
+		printf("\n");
+		
+		printf("        %s\n", arguments[i].helptext);
+	}
+}
 
 
 
@@ -122,5 +165,11 @@ int main(int argc, char **argv)
 		}
 	}
 	
-	return (action_func != NULL ? action_func(&arg_data) : 1);
+	if(action_func == NULL || arg_data.print_help)
+	{
+		print_help();
+		return (arg_data.print_help ? 0 : 1);
+	}
+	
+	return action_func(&arg_data);
 }
