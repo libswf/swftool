@@ -75,26 +75,32 @@ void print_version()
 
 void print_help()
 {
-	printf("Usage: swftool [action] [file] <file2> <file...>\n");
+	printf("\033[1mUSAGE\033[0m\n");
+	printf("    \033[1mswftool\033[0m [action] [file] <file2> <file...>\n");
 	printf("\n");
 	
-	printf("Actions:\n");
+	printf("\033[1mACTIONS\033[0m\n");
+	printf("\n");
 	for(size_t i = 0; i < sizeof(actions)/sizeof(actions[0]); i++)
 	{
-		printf("    %s\n", actions[i].key);
+		printf("    \033[1m%s\033[0m\n", actions[i].key);
 		printf("        %s\n", actions[i].helptext);
+		printf("\n");
 	}
 	
-	printf("Options:\n");
+	printf("\033[1mOPTIONS\033[0m\n");
+	printf("\n");
 	for(size_t i = 0; i < sizeof(arguments)/sizeof(arguments[0]); i++)
 	{
-		printf("    ");
+		printf("    \033[1m");
 		if(arguments[i].skey != 0) printf("-%c", arguments[i].skey);
 		if(arguments[i].skey != 0 && arguments[i].lkey != NULL) printf(", ");
 		if(arguments[i].lkey != NULL) printf("--%s", arguments[i].lkey);
-		printf("\n");
+		printf("\033[0m\n");
 		
 		printf("        %s\n", arguments[i].helptext);
+		
+		printf("\n");
 	}
 }
 
