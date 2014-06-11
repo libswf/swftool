@@ -15,7 +15,7 @@ void action_info_callback(SWF *swf)
 		swf->frame_rate/256.0f);
 }
 
-int action_info(int fcount, char **files)
+int action_info(args_t *args)
 {
-	return batch_process_files(fcount, files, action_info_callback);
+	return batch_process_files(args, action_info_callback);
 }

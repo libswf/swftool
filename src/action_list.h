@@ -1,6 +1,8 @@
 #ifndef ACTION_LIST_H
 #define ACTION_LIST_H
 
-int action_list(int fcount, char **files);
+#include "common.h"
+
+int action_list(args_t *args);
 
 #endif

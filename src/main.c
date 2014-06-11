@@ -12,7 +12,7 @@
 /// Typedef for function pointers to action implementations
 /// @arg fcount The number of files given
 /// @arg files All files passed in
-typedef int(*action_func_ptr)(int fcount, char **files);
+typedef int(*action_func_ptr)(args_t *args);
 
 
 
@@ -104,5 +104,5 @@ int main(int argc, char **argv)
 		}
 	}
 	
-	return action_func(arg_data.fcount, arg_data.files);
+	return action_func(&arg_data);
 }

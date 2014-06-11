@@ -1,6 +1,8 @@
 #ifndef ACTION_HELP_H
 #define ACTION_HELP_H
 
-int action_help(int fcount, char **files);
+#include "common.h"
+
+int action_help(args_t *args);
 
 #endif

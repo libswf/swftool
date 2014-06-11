@@ -222,15 +222,15 @@ SWFError parse_swf_file(SWFParser *parser, FILE *fp)
 	return SWF_OK;
 }
 
-int batch_process_files(int fcount, char **files, void(*callback)(SWF *swf))
+int batch_process_files(args_t *args, void(*callback)(SWF *swf))
 {
 	int retval = 0;
 	
-	for(int i = 0; i < fcount; i++)
+	for(int i = 0; i < args->fcount; i++)
 	{
-		const char *path = files[i];
+		const char *path = args->files[i];
 		
-		if(fcount > 1)
+		if(args->fcount > 1)
 			printf("== %s ==\n", path);
 		
 		FILE *fp = fopen(path, "rb");

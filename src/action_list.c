@@ -30,7 +30,7 @@ void action_list_callback(SWF *swf)
 	}
 }
 
-int action_list(int fcount, char **files)
+int action_list(args_t *args)
 {
-	return batch_process_files(fcount, files, action_list_callback);
+	return batch_process_files(args, action_list_callback);
 }
