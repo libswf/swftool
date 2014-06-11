@@ -63,8 +63,9 @@ int main(int argc, char **argv)
 			{
 				for(size_t j = 0; j < sizeof(arguments)/sizeof(arguments[0]); j++)
 				{
-					if(strcmp(arg + 2, arguments[j].lkey) == 0 && arguments[j].out_flag != NULL)
-						*(arguments[j].out_flag) = true;
+					argument_entry *argument = &(arguments[j]);
+					if(argument->lkey != NULL && strcmp(arg + 2, argument->lkey) == 0 && argument->out_flag != NULL)
+						*(argument->out_flag) = true;
 				}
 			}
 			else
@@ -73,8 +74,9 @@ int main(int argc, char **argv)
 				{
 					for(size_t j = 0; j < sizeof(arguments)/sizeof(arguments[0]); j++)
 					{
-						if(arg[k] == arguments[j].skey && arguments[j].out_flag != NULL)
-							*(arguments[j].out_flag) = true;
+						argument_entry *argument = &(arguments[j]);
+						if(arg[k] == argument->skey && argument->out_flag != NULL)
+							*(argument->out_flag) = true;
 					}
 				}
 			}
