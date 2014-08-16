@@ -3,8 +3,8 @@
 	[
 		{
 			"path": ".",
-			"folder_exclude_patterns": ["autom4te.cache", "m4", ".deps"],
-			"file_exclude_patterns": ["Makefile", "Makefile.in", "configure", "aclocal.m4", "autom4te.cache", "config.*", "compile", "depcomp", "install-sh", "ltmain.sh", "missing", "stamp-h?", ".deps", ".dirstamp", "*.o", "*~", "*.swp", "*.sublime-workspace", "swftool", "swftool.exe"]
+			"folder_exclude_patterns": ["CMakeFiles"],
+			"file_exclude_patterns": ["Makefile", "CMakeCache.txt", "cmake_install.cmake", "swftool/swftool", "swftool/swftool.exe"]
 		}
 	]
 }
